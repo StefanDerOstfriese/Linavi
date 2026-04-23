@@ -38,6 +38,7 @@ const WORDS = [
   { w:"pova", de:"passt/ist gut so", cat:"Chat" },
   { w:"riva", de:"egal", cat:"Chat" },
   { w:"hush", de:"leise/ruhig", cat:"Chat" },
+  { w:"tudo", de:"dito", cat:"Chat" },
 
   // Fragewörter
   { w:"va", de:"wer", cat:"Fragewörter" },

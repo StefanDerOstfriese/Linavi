@@ -37,6 +37,7 @@ redo = nochmal
 pova = passt/ist gut so
 riva = egal
 hush = leise/ruhig
+tudo = dito
 
 [Fragewörter]
 va = wer
