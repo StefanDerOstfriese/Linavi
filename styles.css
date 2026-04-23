@@ -582,6 +582,98 @@ strong { font-weight: 500; }
   font-size: 13px;
 }
 
+/* ---------- ADD WORD FORM ---------- */
+.add-word-box {
+  margin: 14px 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-alt);
+  overflow: hidden;
+}
+.add-word-box summary {
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+  list-style: none;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.add-word-box summary::-webkit-details-marker { display: none; }
+.add-word-box summary::before {
+  content: '▸';
+  font-size: 10px;
+  display: inline-block;
+  transition: transform .15s;
+}
+.add-word-box[open] summary {
+  border-bottom: 1px solid var(--border);
+}
+.add-word-box[open] summary::before {
+  transform: rotate(90deg);
+}
+.add-word-form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 14px;
+  align-items: flex-end;
+}
+.add-word-form .input { flex: 1 1 160px; }
+.add-word-form .select { flex: 0 1 180px; }
+
+/* validation error highlight */
+.input.is-error,
+.select.is-error {
+  border-color: #b33;
+  box-shadow: 0 0 0 3px rgba(187,51,51,.12);
+}
+
+/* ---------- CUSTOM WORD BADGE ---------- */
+.badge-custom {
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  background: var(--gold-lt);
+  border: 1px solid rgba(194,148,26,.3);
+  padding: 1px 6px;
+  border-radius: 3px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* ---------- DELETE BUTTON ---------- */
+.btn-delete {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px 8px;
+  line-height: 1.4;
+  transition: background .12s, color .12s, border-color .12s;
+  min-height: 28px;
+}
+.btn-delete:hover {
+  background: var(--accent-lt);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* 4th table column (delete) — narrow */
+.table td:nth-child(4),
+.table th:nth-child(4) {
+  width: 44px;
+  text-align: center;
+  padding: 8px 6px;
+}
+
 /* ---------- FOCUS VISIBLE ---------- */
 :focus-visible {
   outline: 2px solid var(--accent);

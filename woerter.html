@@ -47,6 +47,18 @@
 
       <div id="wordStats" class="muted small"></div>
 
+      <details class="add-word-box" id="addWordBox">
+        <summary>Wort hinzufügen</summary>
+        <div class="add-word-form">
+          <input id="newW"   class="input" type="text" placeholder="Linavi-Wort" autocomplete="off" maxlength="40" />
+          <input id="newDe"  class="input" type="text" placeholder="Bedeutung (DE)" autocomplete="off" maxlength="80" />
+          <select id="newCat" class="select">
+            <option value="">Kategorie …</option>
+          </select>
+          <button class="btn" id="btnAddWord">Hinzufügen</button>
+        </div>
+      </details>
+
       <div class="table-wrap">
         <table class="table" id="wordTable">
           <thead>
@@ -54,6 +66,7 @@
               <th>Wort</th>
               <th>Bedeutung (DE)</th>
               <th>Kategorie</th>
+              <th></th>
             </tr>
           </thead>
           <tbody id="wordTbody"></tbody>

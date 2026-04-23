@@ -352,25 +352,49 @@ function escapeAttr(s){ return escapeHTML(s).replaceAll("\n"," "); }
 
 // ---------- WORDS PAGE ----------
 function initWords(){
-  const tbody = document.getElementById("wordTbody");
-  const search = document.getElementById("wordSearch");
-  const catSel = document.getElementById("wordCategory");
-  const stats = document.getElementById("wordStats");
-  const btnCopy = document.getElementById("btnCopyWords");
+  const tbody    = document.getElementById("wordTbody");
+  const search   = document.getElementById("wordSearch");
+  const catSel   = document.getElementById("wordCategory");
+  const stats    = document.getElementById("wordStats");
+  const btnCopy  = document.getElementById("btnCopyWords");
+  const newWEl   = document.getElementById("newW");
+  const newDeEl  = document.getElementById("newDe");
+  const newCatEl = document.getElementById("newCat");
+  const btnAdd   = document.getElementById("btnAddWord");
+  const addBox   = document.getElementById("addWordBox");
 
+  // ---------- Custom word storage ----------
+  const STORAGE_KEY = "linavi_custom_words";
+  function loadCustom(){ return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); }
+  function saveCustom(arr){ localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); }
+
+  // ---------- Populate category dropdowns ----------
   const cats = uniq(WORDS.map(x=>x.cat)).sort((a,b)=>a.localeCompare(b,"de"));
   for(const c of cats){
+    [catSel, newCatEl].forEach(sel=>{
+      if(!sel) return;
+      const opt = document.createElement("option");
+      opt.value = c; opt.textContent = c;
+      sel.appendChild(opt);
+    });
+  }
+  if(newCatEl){
     const opt = document.createElement("option");
-    opt.value = c;
-    opt.textContent = c;
-    catSel.appendChild(opt);
+    opt.value = "Eigene"; opt.textContent = "Eigene";
+    newCatEl.appendChild(opt);
   }
 
+  // ---------- Render table ----------
   function render(){
-    const q = norm(search.value);
+    const q   = norm(search.value);
     const cat = catSel.value;
+    const custom   = loadCustom();
+    const allWords = [
+      ...WORDS.map(x=>({...x, _custom:false})),
+      ...custom.map(x=>({...x, _custom:true}))
+    ];
 
-    const filtered = WORDS.filter(x=>{
+    const filtered = allWords.filter(x=>{
       const okCat = (cat === "all") || (x.cat === cat);
       const okQ = !q || norm(x.w).includes(q) || norm(x.de).includes(q) || norm(x.cat).includes(q);
       return okCat && okQ;
@@ -380,18 +404,56 @@ function initWords(){
     for(const it of filtered){
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td><span class="w">${escapeHTML(it.w)}</span></td>
+        <td>
+          <span class="w">${escapeHTML(it.w)}</span>
+          ${it._custom ? '<span class="badge-custom">eigenes</span>' : ''}
+        </td>
         <td>${escapeHTML(it.de)}</td>
         <td>${escapeHTML(it.cat)}</td>
+        <td>${it._custom
+          ? `<button class="btn-delete" data-id="${escapeAttr(it._id)}" title="Löschen" aria-label="Wort löschen">×</button>`
+          : ''}</td>
       `;
       tbody.appendChild(tr);
     }
 
-    stats.textContent = `${filtered.length} / ${WORDS.length} Wörter angezeigt`;
+    tbody.querySelectorAll(".btn-delete").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const id = btn.getAttribute("data-id");
+        saveCustom(loadCustom().filter(x=>x._id !== id));
+        render();
+      });
+    });
+
+    stats.textContent = `${filtered.length} / ${allWords.length} Wörter angezeigt`;
   }
 
+  // ---------- Add word ----------
+  function addWord(){
+    const w  = (newWEl?.value  ?? "").trim();
+    const de = (newDeEl?.value ?? "").trim();
+    if(!w)  { newWEl?.classList.add("is-error");  return; }
+    if(!de) { newDeEl?.classList.add("is-error"); return; }
+    const cat = newCatEl?.value || "Eigene";
+    const custom = loadCustom();
+    custom.push({ w, de, cat, _id: Date.now().toString() });
+    saveCustom(custom);
+    if(newWEl)  newWEl.value  = "";
+    if(newDeEl) newDeEl.value = "";
+    if(addBox)  addBox.removeAttribute("open");
+    render();
+  }
+
+  btnAdd?.addEventListener("click", addWord);
+  [newWEl, newDeEl].forEach(el=>{
+    el?.addEventListener("keydown", e=>{ if(e.key==="Enter") addWord(); });
+    el?.addEventListener("input",   ()=> el.classList.remove("is-error"));
+  });
+
+  // ---------- Copy list (built-in + custom) ----------
   btnCopy?.addEventListener("click", ()=>{
-    const lines = WORDS
+    const allWords = [...WORDS, ...loadCustom()];
+    const lines = allWords
       .slice()
       .sort((a,b)=>a.w.localeCompare(b.w,"de"))
       .map(x=>`${x.w} = ${x.de} (${x.cat})`);
