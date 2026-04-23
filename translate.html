@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Linavi – Mini-Übersetzer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo">Linavi</div>
+        <div class="tag">Mini‑Übersetzer (DE → Linavi)</div>
+      </div>
+
+      <nav class="nav">
+        <a class="nav__link" href="index.html">Start</a>
+        <a class="nav__link" href="woerter.html">Wörter</a>
+        <a class="nav__link" href="phrasen.html">Phrasen</a>
+        <a class="nav__link" href="stilguide.html">Stilguide</a>
+        <a class="nav__link is-active" href="translate.html">Übersetzer</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <h1>DE → Linavi</h1>
+      <p class="muted">
+        Der Übersetzer ist bewusst klein und regelbasiert.
+        Er erkennt nur häufige Muster und schlägt sonst Alternativen vor.
+      </p>
+
+      <div class="grid grid--2">
+        <div class="panel">
+          <h2>Deutsch</h2>
+          <textarea id="deInput" class="textarea" rows="8" placeholder="Schreibe einen kurzen Satz, z. B.:
+Ich liebe dich so sehr.
+Bitte warte 5 Minuten.
+Ich weiß nicht.
+Wo bist du jetzt?"></textarea>
+
+          <div class="phrase__actions">
+            <button class="btn" id="btnTranslate">Übersetzen</button>
+            <button class="btn btn--ghost" id="btnClear">Leeren</button>
+          </div>
+
+          <div class="muted small" style="margin-top:10px">
+            Tipp: Strg/Cmd + Enter übersetzt.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Linavi</h2>
+          <div id="aiOut" class="code" style="min-height: 190px;"></div>
+
+          <div class="phrase__actions">
+            <button class="btn btn--ghost" id="btnCopyAi">Linavi kopieren</button>
+          </div>
+
+          <div id="aiNotes" class="muted small" style="margin-top:10px"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span class="muted">Linavi • Mini‑Übersetzer</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>window.LINAVI_PAGE = "translate";</script>
+</body>
+</html>

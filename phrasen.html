@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Linavi – Phrasebook</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo">Linavi</div>
+        <div class="tag">Phrasebook (Chat‑Sätze)</div>
+      </div>
+
+      <nav class="nav">
+        <a class="nav__link" href="index.html">Start</a>
+        <a class="nav__link" href="woerter.html">Wörter</a>
+        <a class="nav__link is-active" href="phrasen.html">Phrasen</a>
+        <a class="nav__link" href="stilguide.html">Stilguide</a>
+        <a class="nav__link" href="translate.html">Übersetzer</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <div class="row">
+        <h1>Phrasen</h1>
+        <div class="row__right">
+          <button class="btn btn--ghost" id="btnCopyPhrases">Liste kopieren</button>
+        </div>
+      </div>
+
+      <p class="muted">
+        Suche nach Phrase oder Übersetzung.
+        Beispiel: <span class="w">mirei</span>, <span class="w">treffen</span>, <span class="w">plii</span>.
+      </p>
+
+      <div class="controls">
+        <input id="phraseSearch" class="input" type="search" placeholder="Suchen…" autocomplete="off" />
+        <select id="phraseSection" class="select">
+          <option value="all">Alle Bereiche</option>
+        </select>
+      </div>
+
+      <div id="phraseStats" class="muted small"></div>
+
+      <div id="phraseList" class="phrase-list"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span class="muted">Linavi • Phrasen</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>window.LINAVI_PAGE = "phrases";</script>
+</body>
+</html>

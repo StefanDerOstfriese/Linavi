@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Linavi – Wörter</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo">Linavi</div>
+        <div class="tag">Wörter (Basisliste)</div>
+      </div>
+
+      <nav class="nav">
+        <a class="nav__link" href="index.html">Start</a>
+        <a class="nav__link is-active" href="woerter.html">Wörter</a>
+        <a class="nav__link" href="phrasen.html">Phrasen</a>
+        <a class="nav__link" href="stilguide.html">Stilguide</a>
+        <a class="nav__link" href="translate.html">Übersetzer</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <div class="row">
+        <h1>Wörter</h1>
+        <div class="row__right">
+          <button class="btn btn--ghost" id="btnCopyWords">Liste kopieren</button>
+        </div>
+      </div>
+
+      <p class="muted">
+        Suche nach Kunstwort oder deutscher Bedeutung.
+        Beispiel: <span class="w">Luv</span>, <span class="w">zeit</span>, <span class="w">nai</span>.
+      </p>
+
+      <div class="controls">
+        <input id="wordSearch" class="input" type="search" placeholder="Suchen…" autocomplete="off" />
+        <select id="wordCategory" class="select">
+          <option value="all">Alle Kategorien</option>
+        </select>
+      </div>
+
+      <div id="wordStats" class="muted small"></div>
+
+      <div class="table-wrap">
+        <table class="table" id="wordTable">
+          <thead>
+            <tr>
+              <th>Wort</th>
+              <th>Bedeutung (DE)</th>
+              <th>Kategorie</th>
+            </tr>
+          </thead>
+          <tbody id="wordTbody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span class="muted">Linavi • Wörter</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>window.LINAVI_PAGE = "words";</script>
+</body>
+</html>

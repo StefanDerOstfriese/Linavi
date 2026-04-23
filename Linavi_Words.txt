@@ -1,0 +1,189 @@
+Linavi – Wörter (Basisliste)
+
+[Personen]
+Ai = ich
+ya = du
+mii = wir
+yii = ihr
+eno = er
+ena = sie (Sing.)
+eni = sie (Plural)
+pera = person/mensch
+fena = freund*in
+fama = familie
+lena = kind
+mama = mutter
+papa = vater
+pari = partner*in
+tira = team/gruppe
+
+[Chat]
+yea = ja/ok
+nai = nein/nicht
+oka = okay
+plii = bitte
+dani = danke
+gira = gern/kein ding
+sori = sorry
+mirei = verzeihung / bitte entschuldige
+heii = hallo/hi
+bai = tschüss
+oyo = oh/wow
+aha = verstanden
+hmm = unsicher/hm
+seo = bitte wiederholen
+slo = langsam
+redo = nochmal
+pova = passt/ist gut so
+riva = egal
+hush = leise/ruhig
+
+[Fragewörter]
+va = wer
+vo = was
+vi = wo
+vu = wann
+ve = warum
+vii = wie
+
+[Verknüpfer]
+ani = und
+ora = oder
+buta = aber
+kosa = weil
+efi = wenn
+
+[Zeit]
+nu = jetzt
+gesi = gestern
+hodi = heute
+mora = morgen (nächster Tag)
+bali = bald
+sapa = später
+fora = vorher
+afa = nachher
+dai = tag
+wika = woche
+muna = monat
+yara = jahr
+mori = morgen (Tageszeit)
+noa = mittag
+evea = abend
+nita = nacht
+mina = minute
+hora = stunde
+tima = zeit
+pula = plan/planung
+
+[Ort]
+hira = hier
+dara = dort
+huma = zuhause
+loka = ort/platz
+roma = raum/zimmer
+ini = in
+ina = drin
+aura = draußen
+via = weg/route
+adra = adresse
+neta = internet
+telea = telefon
+
+[Verben]
+esi = sein
+havi = haben
+duri = machen/tun
+gona = gehen/fahren
+kumi = kommen
+stai = bleiben
+giva = geben
+teya = nehmen
+mira = sehen/treffen
+saya = sagen
+mema = schreiben/chatten
+rila = anrufen
+lisa = hören
+navi = wissen/kennen
+tina = denken/glauben
+vila = wollen
+nida = brauchen
+lima = mögen
+Luv = lieben
+hela = helfen
+tria = versuchen
+vata = warten
+stoa = stoppen/aufhören
+suna = anfangen
+fina = fertig/enden
+paya = bezahlen
+mola = kaufen
+nami = essen
+sipa = trinken
+sela = schlafen
+wora = arbeit / arbeiten
+plia = spielen
+
+[Qualität & Menge]
+guti = gut
+badi = schlecht
+dol = sehr/viel
+liti = wenig
+meli = mehr
+lesi = weniger
+genu = genug
+so = so
+ala = alles
+soma = etwas
+nui = neu
+veta = alt (nicht neu)
+safi = sicher
+duno = unsicher
+klia = klar/verständlich
+nema = vielleicht
+fasi = einfach
+harda = schwer/kompliziert
+
+[Gefühle & Körper]
+hapi = glücklich
+glia = froh
+sadi = traurig
+madi = wütend
+firi = ängstlich
+cala = ruhig
+tiri = müde
+siki = krank
+nora = hunger
+sava = durst
+kira = kalt
+vara = warm
+dola = schmerz
+sena = stress/druck
+
+[Alltag]
+skola = schule
+busa = bus
+trena = zug
+karo = auto
+bika = fahrrad
+dora = tür
+bena = bett
+tava = tisch
+sila = stuhl
+luma = licht/lampe
+mona = geld
+paka = paket
+
+[Beziehung]
+fida = vertrauen
+kera = streit
+pasa = frieden/ok-sein
+bela = grenze
+risa = respekt
+kora = schuld
+vera = wahr
+fela = falsch
+kema = problem
+sola = lösung
+kama = erklärung
+nura = wunsch
+pina = versprechen

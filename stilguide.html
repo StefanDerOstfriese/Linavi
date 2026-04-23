@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Linavi – Stilguide</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo">Linavi</div>
+        <div class="tag">Stilguide (Regeln)</div>
+      </div>
+
+      <nav class="nav">
+        <a class="nav__link" href="index.html">Start</a>
+        <a class="nav__link" href="woerter.html">Wörter</a>
+        <a class="nav__link" href="phrasen.html">Phrasen</a>
+        <a class="nav__link is-active" href="stilguide.html">Stilguide</a>
+        <a class="nav__link" href="translate.html">Übersetzer</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <div class="row">
+        <h1>Stilguide</h1>
+        <div class="row__right">
+          <button class="btn btn--ghost" id="btnCopyStyle">Text kopieren</button>
+        </div>
+      </div>
+
+      <div id="styleContent" class="prose"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span class="muted">Linavi • Stilguide</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>window.LINAVI_PAGE = "style";</script>
+</body>
+</html>
