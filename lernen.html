@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Linavi – Lernen</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo">Linavi</div>
+        <div class="tag">Lernen</div>
+      </div>
+
+      <nav class="nav">
+        <a class="nav__link" href="index.html">Start</a>
+        <a class="nav__link" href="woerter.html">Wörter</a>
+        <a class="nav__link" href="phrasen.html">Phrasen</a>
+        <a class="nav__link" href="stilguide.html">Stilguide</a>
+        <a class="nav__link" href="translate.html">Übersetzer</a>
+        <a class="nav__link is-active" href="lernen.html">Lernen</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <div class="row">
+        <h1>Lernen</h1>
+      </div>
+      <p class="muted">Karte umdrehen, dann selbst bewerten. Falsch bewertete Karten kommen wieder.</p>
+
+      <!-- Mode filter -->
+      <div class="learn-mode" id="learnMode">
+        <button class="learn-mode-btn is-active" data-mode="all">Alle</button>
+        <button class="learn-mode-btn" data-mode="words">Nur Wörter</button>
+        <button class="learn-mode-btn" data-mode="phrases">Nur Phrasen</button>
+      </div>
+
+      <!-- Flashcard -->
+      <div class="flashcard" id="flashcard" role="region" aria-live="polite">
+        <div class="flashcard__lang" id="flashLang"></div>
+        <div class="flashcard__text" id="flashText"></div>
+        <div class="flashcard__meta" id="flashMeta"></div>
+      </div>
+
+      <!-- Progress -->
+      <div class="learn-progress">
+        <div class="learn-progress__bar">
+          <div class="learn-progress__fill" id="progressFill"></div>
+        </div>
+        <div class="learn-progress__label" id="progressLabel"></div>
+      </div>
+
+      <!-- Actions -->
+      <div class="learn-actions" id="learnActions">
+        <button class="btn" id="btnFlip">Umdrehen</button>
+        <button class="btn btn--correct" id="btnCorrect" hidden>&#10003; Richtig</button>
+        <button class="btn btn--again" id="btnAgain" hidden>&#10007; Nochmal</button>
+      </div>
+
+      <!-- Done screen -->
+      <div class="learn-done" id="learnDone" hidden>
+        <div class="learn-done__check">&#10003;</div>
+        <p id="doneLabel"></p>
+        <button class="btn" id="btnRestart">Nochmal mischen</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span class="muted">Linavi · Lernen · Leertaste/Enter = Umdrehen · ← = Nochmal · → = Richtig</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>window.LINAVI_PAGE = "learn";</script>
+</body>
+</html>

@@ -720,6 +720,167 @@ function initTranslate(){
   run();
 }
 
+// ---------- LEARN PAGE ----------
+function initLearn(){
+  const STORAGE_KEY = "linavi_custom_words";
+  function loadCustom(){ return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); }
+
+  function shuffle(arr){
+    for(let i = arr.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function buildDeck(mode){
+    const cards = [];
+    if(mode !== "phrases"){
+      const allWords = [...WORDS, ...loadCustom()];
+      for(const item of allWords){
+        const linFront = Math.random() < 0.5;
+        if(linFront){
+          cards.push({ q: item.w, ql: "LINAVI", a: item.de, al: "DEUTSCH", meta: item.cat });
+        } else {
+          cards.push({ q: item.de, ql: "DEUTSCH", a: item.w, al: "LINAVI", meta: item.cat });
+        }
+      }
+    }
+    if(mode !== "words"){
+      for(const p of PHRASES){
+        const linFront = Math.random() < 0.5;
+        if(linFront){
+          cards.push({ q: p.src, ql: "LINAVI", a: p.de, al: "DEUTSCH", meta: p.sec });
+        } else {
+          cards.push({ q: p.de, ql: "DEUTSCH", a: p.src, al: "LINAVI", meta: p.sec });
+        }
+      }
+    }
+    return shuffle(cards);
+  }
+
+  // Elements
+  const modeBar     = document.getElementById("learnMode");
+  const flashcard   = document.getElementById("flashcard");
+  const flashLang   = document.getElementById("flashLang");
+  const flashText   = document.getElementById("flashText");
+  const flashMeta   = document.getElementById("flashMeta");
+  const progressFill  = document.getElementById("progressFill");
+  const progressLabel = document.getElementById("progressLabel");
+  const learnActions  = document.getElementById("learnActions");
+  const btnFlip     = document.getElementById("btnFlip");
+  const btnCorrect  = document.getElementById("btnCorrect");
+  const btnAgain    = document.getElementById("btnAgain");
+  const learnDone   = document.getElementById("learnDone");
+  const doneLabel   = document.getElementById("doneLabel");
+  const btnRestart  = document.getElementById("btnRestart");
+
+  // State
+  let deck = [];
+  let idx = 0;
+  let correct = 0;
+  let total = 0;
+  let isBack = false;
+  let mode = "all";
+
+  function updateProgress(){
+    const done = Math.min(idx, deck.length);
+    const pct = deck.length ? (done / deck.length) * 100 : 0;
+    progressFill.style.width = pct + "%";
+    progressLabel.textContent = `${done} / ${deck.length}`;
+  }
+
+  function flip(card, lang, text, meta){
+    flashcard.classList.add("is-flipping");
+    setTimeout(()=>{
+      flashcard.setAttribute("data-lang", lang);
+      flashLang.textContent = lang;
+      flashText.textContent = text;
+      flashMeta.textContent = meta;
+      flashcard.classList.remove("is-flipping");
+    }, 160);
+  }
+
+  function showFront(){
+    if(idx >= deck.length){ showDone(); return; }
+    isBack = false;
+    const card = deck[idx];
+    flip(card, card.ql, card.q, card.meta);
+    btnFlip.hidden    = false;
+    btnCorrect.hidden = true;
+    btnAgain.hidden   = true;
+    updateProgress();
+  }
+
+  function showBack(){
+    isBack = true;
+    const card = deck[idx];
+    flip(card, card.al, card.a, card.meta);
+    btnFlip.hidden    = true;
+    btnCorrect.hidden = false;
+    btnAgain.hidden   = false;
+  }
+
+  function showDone(){
+    learnActions.hidden = true;
+    flashcard.hidden    = true;
+    learnDone.hidden    = false;
+    doneLabel.textContent = `${correct} / ${total} richtig – Fertig!`;
+    updateProgress();
+  }
+
+  function start(m){
+    mode = m || mode;
+    deck = buildDeck(mode);
+    idx = 0; correct = 0; total = deck.length;
+    isBack = false;
+    flashcard.hidden    = false;
+    learnActions.hidden = false;
+    learnDone.hidden    = true;
+    showFront();
+  }
+
+  // Mode buttons
+  modeBar.addEventListener("click", e=>{
+    const btn = e.target.closest(".learn-mode-btn");
+    if(!btn) return;
+    modeBar.querySelectorAll(".learn-mode-btn").forEach(b=>b.classList.remove("is-active"));
+    btn.classList.add("is-active");
+    start(btn.dataset.mode);
+  });
+
+  // Flip / correct / again
+  btnFlip.addEventListener("click", ()=>{ if(!isBack) showBack(); });
+
+  btnCorrect.addEventListener("click", ()=>{
+    correct++;
+    idx++;
+    showFront();
+  });
+
+  btnAgain.addEventListener("click", ()=>{
+    deck.push(deck[idx]);   // re-queue at end
+    idx++;
+    showFront();
+  });
+
+  btnRestart.addEventListener("click", ()=> start());
+
+  // Keyboard
+  document.addEventListener("keydown", e=>{
+    if(["INPUT","TEXTAREA","SELECT"].includes(e.target.tagName)) return;
+    if(e.key === " " || e.key === "Enter"){
+      e.preventDefault();
+      if(!isBack) btnFlip.click();
+      else btnCorrect.click();
+    }
+    if(e.key === "ArrowLeft"  && isBack){ btnAgain.click(); }
+    if(e.key === "ArrowRight" && isBack){ btnCorrect.click(); }
+  });
+
+  start("all");
+}
+
 // ---------- BOOT ----------
 document.addEventListener("DOMContentLoaded", ()=>{
   const page = window.LINAVI_PAGE;
@@ -727,4 +888,5 @@ document.addEventListener("DOMContentLoaded", ()=>{
   if(page === "phrases") initPhrases();
   if(page === "style") initStyle();
   if(page === "translate") initTranslate();
+  if(page === "learn") initLearn();
 });
