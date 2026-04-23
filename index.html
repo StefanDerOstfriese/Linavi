@@ -11,7 +11,7 @@
     <div class="wrap">
       <div class="brand">
         <div class="logo">Linavi</div>
-        <div class="tag">Weich‑neutral. Einfach. Chat‑tauglich.</div>
+        <div class="tag">Weich‑neutral · Einfach · Chat‑tauglich</div>
       </div>
 
       <nav class="nav">
@@ -25,15 +25,50 @@
   </header>
 
   <main class="wrap">
-    <section class="card hero">
-      <h1>Linavi – Vorstellung</h1>
-      <p>
-        <strong>Linavi</strong> ist eine bewusst <strong>sehr einfache</strong> Kunst‑Chatsprache.
-        Sie nutzt <strong>keine Fälle</strong> (kein ich/mich/mir), arbeitet mit <strong>nai</strong>
-        für „nein/nicht“, und bildet Zeit fast nur über Zeitwörter wie <strong>gesi</strong>,
-        <strong>hodi</strong>, <strong>mora</strong>.
-      </p>
 
+    <!-- HERO -->
+    <section class="card">
+      <div class="hero__layout">
+        <div>
+          <p class="hero__eyebrow">Eine Kunstsprache für den Alltag</p>
+          <h1 class="hero__title">Linavi</h1>
+          <p class="hero__desc">
+            Eine bewusst <strong>sehr einfache</strong> Chatsprache —
+            keine Fälle, keine Verbformen, klare Regeln.
+            <span class="muted">Für Menschen, die miteinander reden wollen.</span>
+          </p>
+          <div class="cta">
+            <a class="btn" href="woerter.html">Wörter ansehen</a>
+            <a class="btn btn--ghost" href="phrasen.html">Phrasebook</a>
+          </div>
+        </div>
+        <div>
+          <div class="hero__specimen" aria-hidden="true">
+            <div class="hero__specimen-phrase">Ai Luv ya.</div>
+            <div class="hero__specimen-gloss">ich liebe dich.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats">
+        <div class="stat">
+          <span class="stat__num">191</span>
+          <span class="stat__label">Wörter</span>
+        </div>
+        <div class="stat">
+          <span class="stat__num">76</span>
+          <span class="stat__label">Phrasen</span>
+        </div>
+        <div class="stat">
+          <span class="stat__num">8</span>
+          <span class="stat__label">Grammatikregeln</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick intro -->
+    <section class="card">
       <div class="grid grid--2">
         <div class="panel">
           <h2>Kernwörter</h2>
@@ -50,10 +85,6 @@
         <div class="panel">
           <h2>Beispiele</h2>
           <div class="example">
-            <div class="example__src">Ai Luv ya.</div>
-            <div class="example__gloss">Ich liebe dich.</div>
-          </div>
-          <div class="example">
             <div class="example__src">Ai Luv ya dol.</div>
             <div class="example__gloss">Ich liebe dich sehr.</div>
           </div>
@@ -61,30 +92,47 @@
             <div class="example__src">Ai nai navi.</div>
             <div class="example__gloss">Ich weiß nicht.</div>
           </div>
+          <div class="example">
+            <div class="example__src">ya oka?</div>
+            <div class="example__gloss">Alles ok?</div>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="cta">
-        <a class="btn" href="woerter.html">→ Wörter ansehen</a>
-        <a class="btn btn--ghost" href="phrasen.html">→ Phrasebook öffnen</a>
+    <!-- Navigation cards -->
+    <section class="card">
+      <h2>Website‑Bereiche</h2>
+      <p class="muted" style="margin-bottom:20px">Alles läuft offline im Browser — kein Framework, keine Abhängigkeiten.</p>
+      <div class="nav-cards">
+        <a class="nav-card" href="woerter.html">
+          <div class="nav-card__title">Wörterliste</div>
+          <div class="nav-card__desc">191 Wörter mit Suche und Kategoriefilter</div>
+          <div class="nav-card__arrow">→</div>
+        </a>
+        <a class="nav-card" href="phrasen.html">
+          <div class="nav-card__title">Phrasebook</div>
+          <div class="nav-card__desc">76 Chat‑Phrasen aus dem Alltag, kopierbar</div>
+          <div class="nav-card__arrow">→</div>
+        </a>
+        <a class="nav-card" href="stilguide.html">
+          <div class="nav-card__title">Stilguide</div>
+          <div class="nav-card__desc">8 Grammatikregeln mit Beispielen</div>
+          <div class="nav-card__arrow">→</div>
+        </a>
+        <a class="nav-card" href="translate.html">
+          <div class="nav-card__title">Mini‑Übersetzer</div>
+          <div class="nav-card__desc">Deutsch → Linavi (regelbasiert)</div>
+          <div class="nav-card__arrow">→</div>
+        </a>
       </div>
     </section>
 
-    <section class="card">
-      <h2>Wie die Website aufgebaut ist</h2>
-      <ul class="list">
-        <li><strong>Wörter</strong>: Basisliste (mit Suche/Filter)</li>
-        <li><strong>Phrasen</strong>: Chat‑Sätze (mit Suche/Filter)</li>
-        <li><strong>Stilguide</strong>: Regeln + Beispiele</li>
-        <li><strong>Übersetzer</strong>: Mini‑Übersetzer (DE → Linavi)</li>
-      </ul>
-      <p class="muted">Alles läuft offline im Browser, ohne Frameworks.</p>
-    </section>
   </main>
 
   <footer class="site-footer">
     <div class="wrap">
-      <span class="muted">Linavi – simple chat language • lokal/offline</span>
+      <span class="muted">Linavi – einfache Chatsprache · offline/lokal</span>
     </div>
   </footer>
 
