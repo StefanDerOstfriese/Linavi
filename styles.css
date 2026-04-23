@@ -11,9 +11,9 @@
   --bg-panel:   #EDE2CA;
   --ink:        #1A1510;
   --ink-2:      #3C2F20;
-  --muted:      #7A6B56;
-  --accent:     #B85C1C;
-  --accent-lt:  #F2DECE;
+  --muted:      #685848;   /* darkened: 5.4:1 on --bg */
+  --accent:     #9E4C14;   /* darkened: white text 5.3:1 */
+  --accent-lt:  #FDF0E8;   /* lightened: badge text 4.7:1 */
   --gold:       #C2941A;
   --gold-lt:    #F5EAC8;
   --border:     #D4C4A4;
@@ -23,7 +23,7 @@
   --dk-bg:      #1A1510;
   --dk-bg-2:    #231D16;
   --dk-text:    #F0E6D2;
-  --dk-muted:   #8A7B65;
+  --dk-muted:   #9E8E7A;   /* lightened: 5.5:1 on --dk-bg */
 
   /* Typography */
   --serif:  'Cormorant Garamond', Georgia, 'Times New Roman', serif;
@@ -44,7 +44,7 @@ body {
   font-family: var(--sans);
   background: var(--bg);
   color: var(--ink);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
@@ -159,7 +159,7 @@ strong { font-weight: 500; }
   font-size: .86em;
   padding: 2px 8px;
   border-radius: 3px;
-  border: 1px solid rgba(184,92,28,.28);
+  border: 1px solid rgba(158,76,20,.28);
   background: var(--accent-lt);
   color: var(--accent);
 }
@@ -381,7 +381,7 @@ strong { font-weight: 500; }
   border-radius: var(--radius);
   outline: none;
   font-family: var(--sans);
-  font-size: 14px;
+  font-size: 16px;    /* 16px prevents iOS auto-zoom */
   transition: border-color .15s, box-shadow .15s;
 }
 .input  { flex: 1 1 260px; }
@@ -486,13 +486,16 @@ strong { font-weight: 500; }
   border-radius: var(--radius);
   cursor: pointer;
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;   /* touch target ≥44px */
   line-height: 1.3;
   transition: background .13s, border-color .13s;
 }
 .btn:hover {
-  background: #9C4E16;
-  border-color: #9C4E16;
+  background: #7E3C0A;
+  border-color: #7E3C0A;
 }
 .btn--ghost {
   background: transparent;
@@ -559,7 +562,7 @@ strong { font-weight: 500; }
   resize: vertical;
   min-height: 160px;
   font-family: var(--sans);
-  font-size: 14px;
+  font-size: 16px;    /* 16px prevents iOS auto-zoom */
   line-height: 1.6;
   transition: border-color .15s, box-shadow .15s;
 }
@@ -577,4 +580,26 @@ strong { font-weight: 500; }
 .site-footer .muted {
   color: var(--dk-muted);
   font-size: 13px;
+}
+
+/* ---------- FOCUS VISIBLE ---------- */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+/* Form elements already show border+shadow on focus; suppress duplicate outline */
+.input:focus-visible,
+.select:focus-visible,
+.textarea:focus-visible {
+  outline: none;
+}
+
+/* ---------- REDUCED MOTION ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
 }
