@@ -350,6 +350,25 @@ function escapeHTML(s){
 }
 function escapeAttr(s){ return escapeHTML(s).replaceAll("\n"," "); }
 
+// ---------- SUPABASE ----------
+const SUPABASE_URL = "https://vypknycwqkvsehjaeygd.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5cGtueWN3cWt2c2VoamFleWdkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwMjYyOTksImV4cCI6MjA5MjYwMjI5OX0.hSCkZ7OneIFjw8HS9onOWq0dCZUK8d5wuUaNFMv-gU8";
+
+async function sbFetch(path, options = {}){
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+    ...options,
+    headers: {
+      "apikey": SUPABASE_KEY,
+      "Authorization": `Bearer ${SUPABASE_KEY}`,
+      "Content-Type": "application/json",
+      ...(options.headers || {})
+    }
+  });
+  if(!res.ok) throw new Error(`Supabase ${res.status}`);
+  if(options.method === "POST") return null;
+  return res.json();
+}
+
 // ---------- WORDS PAGE ----------
 function initWords(){
   const tbody    = document.getElementById("wordTbody");
@@ -362,6 +381,8 @@ function initWords(){
   const newCatEl = document.getElementById("newCat");
   const btnAdd   = document.getElementById("btnAddWord");
   const addBox   = document.getElementById("addWordBox");
+
+  let communityWords = [];
 
   // ---------- Custom word storage ----------
   const STORAGE_KEY = "linavi_custom_words";
@@ -390,8 +411,9 @@ function initWords(){
     const cat = catSel.value;
     const custom   = loadCustom();
     const allWords = [
-      ...WORDS.map(x=>({...x, _custom:false})),
-      ...custom.map(x=>({...x, _custom:true}))
+      ...WORDS.map(x=>({...x, _custom:false, _community:false})),
+      ...communityWords.map(x=>({...x, _custom:false, _community:true})),
+      ...custom.map(x=>({...x, _custom:true, _community:false}))
     ];
 
     const filtered = allWords.filter(x=>{
@@ -407,6 +429,7 @@ function initWords(){
         <td>
           <span class="w">${escapeHTML(it.w)}</span>
           ${it._custom ? '<span class="badge-custom">eigenes</span>' : ''}
+          ${it._community ? '<span class="badge-community">community</span>' : ''}
         </td>
         <td>${escapeHTML(it.de)}</td>
         <td>${escapeHTML(it.cat)}</td>
@@ -429,19 +452,38 @@ function initWords(){
   }
 
   // ---------- Add word ----------
-  function addWord(){
+  let statusEl = null;
+  function showStatus(msg, type){
+    if(!statusEl){
+      statusEl = document.createElement("p");
+      statusEl.className = "add-word-status";
+      addBox?.querySelector(".add-word-form")?.appendChild(statusEl);
+    }
+    statusEl.textContent = msg;
+    statusEl.dataset.type = type;
+  }
+
+  async function addWord(){
     const w  = (newWEl?.value  ?? "").trim();
     const de = (newDeEl?.value ?? "").trim();
     if(!w)  { newWEl?.classList.add("is-error");  return; }
     if(!de) { newDeEl?.classList.add("is-error"); return; }
     const cat = newCatEl?.value || "Eigene";
-    const custom = loadCustom();
-    custom.push({ w, de, cat, _id: Date.now().toString() });
-    saveCustom(custom);
-    if(newWEl)  newWEl.value  = "";
-    if(newDeEl) newDeEl.value = "";
-    if(addBox)  addBox.removeAttribute("open");
-    render();
+    if(btnAdd) btnAdd.disabled = true;
+    try {
+      await sbFetch("words", {
+        method: "POST",
+        headers: { "Prefer": "return=minimal" },
+        body: JSON.stringify({ w, de, cat })
+      });
+      if(newWEl)  newWEl.value  = "";
+      if(newDeEl) newDeEl.value = "";
+      showStatus("Eingereicht! Erscheint nach Prüfung für alle.", "ok");
+    } catch(e) {
+      showStatus("Fehler beim Einreichen. Bitte erneut versuchen.", "err");
+    } finally {
+      if(btnAdd) btnAdd.disabled = false;
+    }
   }
 
   btnAdd?.addEventListener("click", addWord);
@@ -452,7 +494,7 @@ function initWords(){
 
   // ---------- Copy list (built-in + custom) ----------
   btnCopy?.addEventListener("click", ()=>{
-    const allWords = [...WORDS, ...loadCustom()];
+    const allWords = [...WORDS, ...communityWords, ...loadCustom()];
     const lines = allWords
       .slice()
       .sort((a,b)=>a.w.localeCompare(b.w,"de"))
@@ -465,6 +507,10 @@ function initWords(){
   search.addEventListener("input", render);
   catSel.addEventListener("change", render);
   render();
+
+  sbFetch("words?approved=eq.true&select=w,de,cat")
+    .then(words => { communityWords = words || []; render(); })
+    .catch(() => {});
 }
 
 // ---------- PHRASES PAGE ----------
@@ -724,6 +770,7 @@ function initTranslate(){
 function initLearn(){
   const STORAGE_KEY = "linavi_custom_words";
   function loadCustom(){ return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); }
+  let communityWords = [];
 
   function shuffle(arr){
     for(let i = arr.length - 1; i > 0; i--){
@@ -736,7 +783,7 @@ function initLearn(){
   function buildDeck(mode){
     const cards = [];
     if(mode !== "phrases"){
-      const allWords = [...WORDS, ...loadCustom()];
+      const allWords = [...WORDS, ...communityWords, ...loadCustom()];
       for(const item of allWords){
         const linFront = Math.random() < 0.5;
         if(linFront){
@@ -878,7 +925,10 @@ function initLearn(){
     if(e.key === "ArrowRight" && isBack){ btnCorrect.click(); }
   });
 
-  start("all");
+  sbFetch("words?approved=eq.true&select=w,de,cat")
+    .then(words => { communityWords = words || []; })
+    .catch(() => {})
+    .finally(() => start("all"));
 }
 
 // ---------- BOOT ----------

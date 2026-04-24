@@ -647,6 +647,31 @@ strong { font-weight: 500; }
   vertical-align: middle;
 }
 
+/* ---------- COMMUNITY WORD BADGE ---------- */
+.badge-community {
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #1a5c35;
+  background: #d8f3dc;
+  border: 1px solid rgba(45,106,79,.25);
+  padding: 1px 6px;
+  border-radius: 3px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* ---------- ADD WORD STATUS ---------- */
+.add-word-status {
+  margin: .5rem 0 0;
+  font-size: .85rem;
+  padding: .4rem .7rem;
+  border-radius: 4px;
+}
+.add-word-status[data-type="ok"]  { color: #1a5c35; background: #d8f3dc; }
+.add-word-status[data-type="err"] { color: #7c1a1a; background: #fde8e8; }
+
 /* ---------- DELETE BUTTON ---------- */
 .btn-delete {
   background: none;
